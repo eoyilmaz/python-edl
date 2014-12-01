@@ -60,3 +60,10 @@ class ParserTestCase(unittest.TestCase):
         p = edl.Parser('23.98')
         with open('../tests/test_data/test_2398.edl') as f:
             s = p.parse(f)
+
+    def test_avid_2398fps(self):
+        p = edl.Parser('24')
+        with open('../tests/test_data/avidEDL.edl') as f:
+            s = p.parse(f)
+
+        self.assertEqual(len(s.events), 64)

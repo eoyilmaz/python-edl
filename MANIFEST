@@ -5,11 +5,17 @@ README
 setup.py
 edl/__init__.py
 tests/__init__.py
+tests/__init__.pyc
 tests/test_effect_matcher.py
+tests/test_effect_matcher.pyc
 tests/test_list.py
+tests/test_list.pyc
 tests/test_parser.py
+tests/test_parser.pyc
 tests/test_timewarp.py
+tests/test_timewarp.pyc
 tests/test_title_matcher.py
+tests/test_title_matcher.pyc
 tests/test_data/test.edl
 tests/test_data/test_2398.edl
 tests/test_data/test_2398psf.edl

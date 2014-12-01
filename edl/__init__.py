@@ -1,11 +1,10 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Python EDL parsing library
 """
 import sys
 import collections
 import re
-import pprint
 import timecode
 
 __version__ = '0.1.10'
@@ -231,6 +230,14 @@ class TimewarpMatcher(Matcher):
                 stack[-1].timewarp.reverse = True
 
 
+# class ASCMatcher(Matcher):
+#     """Matches ASC SOP and ASC SAT parameters
+#     """
+#
+#     def __init__(self):
+#         self.regex = ''
+
+
 class EventMatcher(Matcher):
     """No documentation for this class yet.
     """
@@ -339,6 +346,12 @@ class Timewarp(object):
         }
 
 
+# class ASC(object):
+#     """Handles ASC CDL parameters
+#     """
+#     pass
+
+
 class Event(object):
     """Represents an edit event (or, more specifically, an EDL line denoting a
     clip being part of an EDL event)
@@ -362,6 +375,8 @@ class Event(object):
         self.src_start_tc = None
         self.num = None
         self.tr_code = None
+        self.asc_sop = None
+        self.asc_sat = None
 
         # TODO: This is absolutely wrong and not safe. Please validate the
         #       incoming values, before adopting them as instance variables
@@ -546,12 +561,16 @@ class Parser(object):
 
     def parse(self, input_):
         stack = None
+
         if isinstance(input_, str):
             input_ = input_.splitlines(True)
+        elif isinstance(input_, file):
+            input_ = input_.read()
+            input_ = input_.splitlines(True)
+
         if isinstance(input_, collections.Iterable):
             stack = List(self.fps)
             for l in input_:
                 for m in self.get_matchers():
                     m.apply(stack, l)
-        pprint.PrettyPrinter(indent=4)
         return stack
